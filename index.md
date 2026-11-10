@@ -21,16 +21,12 @@ Cribbit is published by Thumbo LLC, doing business as Thumbo ("Thumbo," "we," "u
 
 ## 2. How We Use Information
 
-Audio you record is sent, via our backend service, to the following third-party providers solely to produce your transcript and title:
+Audio you record is sent, via our backend service, to a third-party provider, Groq, solely to produce your transcript and title. Groq converts your recorded audio into text, cleans that text up (punctuation, paragraph breaks, filler-word removal), and generates a suggested title.
 
-- **Deepgram** converts your recorded audio into a raw text transcript.
-- **Groq** receives the transcript text (not the audio) and cleans it up (punctuation, paragraph breaks, filler-word removal) and generates a suggested title.
+Our backend function (hosted on Supabase) relays your audio and transcript text to Groq and returns the result to the app. It does not save your audio, ideas, or transcripts.
 
-Our backend function (hosted on Supabase) relays your audio and transcript text to these providers and returns the result to the app. It does not save your audio, ideas, or transcripts.
+Each of these services processes data under its own privacy policy and terms, which we encourage you to review:
 
-Each of these providers processes data under their own privacy policies and terms, which we encourage you to review:
-
-- Deepgram: https://deepgram.com/privacy-policy
 - Groq: https://groq.com/privacy-policy
 - Supabase: https://supabase.com/privacy
 - Expo: https://expo.dev/privacy
@@ -38,14 +34,14 @@ Each of these providers processes data under their own privacy policies and term
 
 ## 3. Data Retention
 
-- **Audio recordings** are discarded after transcription completes and are not retained by Cribbit. We have configured our requests to Deepgram to opt out of its Model Improvement Program. With that setting, Deepgram does not store your audio or transcript after returning the result, and does not use it to train its models.
-- **Transcript text sent for cleanup and titles** is not stored by Groq. We have turned on Groq's Zero Data Retention setting for our account, so the text we send is not logged or kept after the request is processed.
-- **Service records.** Deepgram and Groq may still keep basic records that do not include your content, such as request counts and timing, for billing and operations. Supabase service logs and Expo update requests are described in Section 1.
+- **Audio recordings** are discarded after transcription completes and are not retained by Cribbit. We have turned on Groq's Zero Data Retention setting for our account, so Groq does not keep your audio after the request is processed.
+- **Transcript text sent for cleanup and titles** is not stored by Groq either. With Zero Data Retention on, the text we send is not logged or kept after the request is processed.
+- **Service records.** Groq may still keep basic usage records that do not include your content, such as request counts and timing, for billing and operations. Supabase service logs and Expo update requests are described in Section 1.
 - **Ideas (titles, transcripts, tags)** are stored only locally on your device. We do not keep a separate copy. Deleting an idea, a tag, or the app itself removes this data from your device; we have no server-side copy to delete on our end.
 
 ## 4. Security
 
-Audio and text travel between the app, our backend, and our providers over encrypted (HTTPS) connections. Ideas stored on your device are protected by your device's own security features, such as your passcode and device encryption. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.
+Audio and text travel between the app, our backend, and Groq over encrypted (HTTPS) connections. Ideas stored on your device are protected by your device's own security features, such as your passcode and device encryption. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.
 
 ## 5. Your Choices
 
